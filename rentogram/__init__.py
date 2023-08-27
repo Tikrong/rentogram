@@ -17,7 +17,7 @@ app.config.from_object(os.environ.get('APP_CONFIG'))
 # configure database
 db = SQLAlchemy(app)
 db.init_app(app)
-sql_engine = create_engine(app.config.get("SQLALCHEMY_DATABASE_URI"))
+sql_engine = create_engine(app.config.get("SQLALCHEMY_DATABASE_URI"), connect_args={"check_same_thread": False})
 
 # Конфиг логгера
 logger = logging.getLogger()

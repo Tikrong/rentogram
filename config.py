@@ -16,6 +16,7 @@ class BaseConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     JSON_SORT_KEYS = False
+    OPENAI_AIP_KEY = os.environ.get('OPENAI_AIP_KEY')
 
 
 class DevConfig(BaseConfig):
