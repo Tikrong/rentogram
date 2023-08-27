@@ -34,6 +34,7 @@ class Apartment(db.Model):
                     logger.error(f"Couldn't add {datum} to db, got error {e}")
 
             session.commit()
+            return counter
 
     @staticmethod
     def get_apartments():

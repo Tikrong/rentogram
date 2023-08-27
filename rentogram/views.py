@@ -1,6 +1,6 @@
 import flask
 from flask_headers import headers
-import json
+from flask import request
 
 from rentogram import app, logger
 from rentogram.models import Apartment
@@ -26,24 +26,13 @@ def get_appartments():
     return flask.jsonify(appartments)
 
 
-@app.route("/add_apartments")
+@app.route("/add_apartments", methods=['POST'])
 def add_apartaments():
+    if payload := request.json:
+        if payload['api_key'] and payload['api_key'] == app.config.get('ADD_APARTMENTS_API_KEY'):
+            if apartments := payload['apartments']:
+                added_counter = parse_and_add_apartments(apartments)
+                return f'{added_counter} apartments were added', 200
 
-    # raw_data = {"snyat_kvartiruw": {4199: """#Сдам в Батуми
-    #             На долгий срок от 1 года. Новая 2 комнатная  квартира 47 кв.м, 11 этаж
-    #             В премиум корпусе  NEXT  ORANGE
-    #             5 мин пешком до моря ,
-    #             Все необходимое есть. Газовое отопление, Стиральная машина, Бытовая техника, wifi, кондиционер.
-    #             750$ в месяц + коммунальные платежи и интернет.
-    #             Оплата 1/12 месяц + возвратный депозит
-    #             ул.Инасаридзе угол Кобаладзе
-    #             Собственник
-    #             Писать в личку
-    #             @geo_neb"""}}
+    return "Error, couldn't add apartments", 400
 
-    with open('/Users/aleksandrmalysev/Desktop/projects/rentogram/data.json', 'r') as file:
-        raw_data = json.load(file)
-
-        parse_and_add_apartments(raw_data)
-
-    return "Добавил", 200

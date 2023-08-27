@@ -88,4 +88,4 @@ def parse_and_add_apartments(raw_data: dict):
     except Exception as error:
         print(f"Couldnt finished, got exception {error}")
 
-    Apartment.add_apartments(data)
+    return Apartment.add_apartments(data)

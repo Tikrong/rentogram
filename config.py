@@ -17,6 +17,7 @@ class BaseConfig:
 
     JSON_SORT_KEYS = False
     OPENAI_AIP_KEY = os.environ.get('OPENAI_AIP_KEY')
+    ADD_APARTMENTS_API_KEY = os.environ.get('ADD_APARTMENTS_API_KEY')
 
 
 class DevConfig(BaseConfig):
