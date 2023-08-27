@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask_headers import headers
 import json
 
 from rentogram import app, logger
@@ -17,6 +17,7 @@ def main():
 
 
 @app.route("/get_apartments")
+@headers({'Access-Control-Allow-Origin': '*'})
 def get_appartments():
     """Эндпоинт, который возвращает весь список игр"""
 
@@ -40,9 +41,9 @@ def add_apartaments():
     #             Писать в личку
     #             @geo_neb"""}}
 
-    with open('path', 'r') as file:
+    with open('/Users/aleksandrmalysev/Desktop/projects/rentogram/data.json', 'r') as file:
         raw_data = json.load(file)
 
         parse_and_add_apartments(raw_data)
 
-    return "Added", 200
+    return "Добавил", 200
